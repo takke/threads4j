@@ -12,8 +12,8 @@ class ThreadsClient private constructor(
 ) {
 
     class Builder(
-        private val okHttpClientBuilder: OkHttpClient.Builder,
-        private val gson: Gson
+        private val okHttpClientBuilder: OkHttpClient.Builder = OkHttpClient.Builder(),
+        private val gson: Gson = Gson()
     ) {
         private var accessToken: String? = null
         private var debug = false
