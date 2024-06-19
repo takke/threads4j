@@ -10,85 +10,44 @@ https://developers.facebook.com/docs/threads
 
 # Usage
 
-## Get Public Timeline
-
-```kotlin
-val client: MastodonClient = MastodonClient.Builder("mstdn.jp", OkHttpClient.Builder(), Gson()).build()
-        
-val timelines = Timelines(client)
-val statuses: List<Status> = timelines.getPublic().execute()
-```
-
-## Register App
-
-If you want to access the auth required API, you need create client credential and get access token. see more [docs](https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#apps)
-
-```kotlin
-val client: MastodonClient = MastodonClient.Builder("mstdn.jp", OkHttpClient.Builder(), Gson()).build()
-val apps = Apps(client)
-val appRegistration = apps.createApp(
-	clientName = "client name",
-	redirectUris = "urn:ietf:wg:oauth:2.0:oob",
-	scope = Scope(Scope.Name.ALL),
-	website = "https://sample.com"
-).execute()
-save(appRegistration) // appRegistration needs to be saved.
-```
-
-AppRegistration has client id and client secret.
-
-## OAuth login and get Access Token
-
-```kotlin
-val client: MastodonClient = MastodonClient.Builder("mstdn.jp", OkHttpClient.Builder(), Gson()).build()
-val clientId = appRegistration.clientId
-val apps = Apps(client)
-
-val url = apps.getOAuthUrl(clientId, Scope(Scope.Name.ALL))
-// url like bellow
-// https://:instance_name/oauth/authorize?client_id=:client_id&redirect_uri=:redirect_uri&response_type=code&scope=read 
-// open url and OAuth login and get auth code
-
-val authCode = //...
-val clientSecret = appRegistration.clientSecret
-val redirectUri = appRegistration.redirectUri
-val accessToken = apps.getAccessToken(
-			clientId,
-			clientSecret,
-			redirectUri,
-			authCode,
-			"authorization_code"
-		)
-// 	accessToken needs to be saved.
-```
-
-## Get raw json
-
-```kotlin
-val client = //...
-val publicMethod = Public(client)
-
-publicMethod.getLocalPublic()
-  .doOnJson { jsonString -> 
-    // You can get raw json for each element.
-    println(jsonString)
-  }
-  .execute() 
-```
+TBD
 
 
 # Implementation Progress
 
-## Methods
-
-- [ ] GET `/api/v1/accounts/:id`
-- [ ] GET `/api/v1/accounts/verify_credentials`
-
 ## Auth
 
-- [ ] Generate Url for OAuth `/oauth/authorize`
-- [ ] POST password authorize `/oauth/token`
-- [ ] POST `/oauth/token`
+- [ ] Generate Url for OAuth `https://threads.net/oauth/authorize`
+- [ ] POST `https://graph.threads.net/oauth/access_token`
+- [ ] GET `https://graph.threads.net/access_token`
+
+## Publishing
+
+- [ ] POST `/{threads-user-id}/threads`
+- [ ] POST `/{threads-user-id}/threads_publish`
+- [ ] GET `/{threads-container-id}?fields=status`
+
+## Media Retrieval
+
+- [ ] GET `/{threads-media-id}`
+
+## Reply Management
+
+- [ ] GET `/{threads-media-id}/replies`
+- [ ] GET `/{threads-media-id}/conversation`
+- [ ] POST `/{threads-reply-id}/manage_reply`
+
+## User
+
+- [ ] GET `/{threads-user-id}/threads`
+- [ ] GET `/{threads-user-id}/threads_publishing_limit`
+- [ ] GET `/{threads-user-id}`
+
+## Insights
+
+- [ ] GET `/{threads-media-id}/insights`
+- [ ] GET `/{threads-user-id}/threads_insights`
+
 
 # Contribution
 
