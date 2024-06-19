@@ -1,5 +1,10 @@
 package threads4j.method
 
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
+import threads4j.auth.AccessToken
+import threads4j.Parameter
+import threads4j.ThreadsRequest
 import threads4j.ThreadsClient
 import threads4j.Scope
 
@@ -8,7 +13,8 @@ import threads4j.Scope
  */
 class AppsMethod(private val client: ThreadsClient) {
 
-    fun getOAuthUrl(clientId: String, scope: Scope, redirectUri: String = "urn:ietf:wg:oauth:2.0:oob"): String {
+    // GET https://threads.net/oauth/authorize
+    fun getOAuthUrl(clientId: String, scope: Scope, redirectUri: String): String {
         val endpoint = "/oauth/authorize"
         val parameters = listOf(
             "client_id=$clientId",
@@ -16,41 +22,39 @@ class AppsMethod(private val client: ThreadsClient) {
             "scope=$scope",
             "response_type=code",
         ).joinToString(separator = "&")
-        return "${client.baseUrl}$endpoint?$parameters"
+        return "https://threads.net$endpoint?$parameters"
     }
 
-//    // POST /oauth/token
-//    @JvmOverloads
-//    fun getAccessToken(
-//        clientId: String,
-//        clientSecret: String,
-//        redirectUri: String = "urn:ietf:wg:oauth:2.0:oob",
-//        code: String,
-//        grantType: String = "authorization_code",
-//        scope: Scope = Scope(Scope.Name.ALL)
-//    ): MastodonRequest<AccessToken> {
-//        val parameters = Parameter().apply {
-//            append("client_id", clientId)
-//            append("client_secret", clientSecret)
-//            append("scope", scope.toString())
-//            append("redirect_uri", redirectUri)
-//            append("code", code)
-//            append("grant_type", grantType)
-//        }.build()
-//
-//        return MastodonRequest(
-//            {
-//                client.post(
-//                    "/oauth/token",
-//                    parameters
-//                        .toRequestBody("application/x-www-form-urlencoded; charset=utf-8".toMediaTypeOrNull())
-//                )
-//            },
-//            {
-//                client.getSerializer().fromJson(it, AccessToken::class.java)
-//            }
-//        )
-//    }
+    // POST https://graph.threads.net/oauth/access_token
+    fun getAccessToken(
+        clientId: String,
+        clientSecret: String,
+        code: String,
+        redirectUri: String,
+    ): ThreadsRequest<AccessToken> {
+        val parameters = Parameter().apply {
+            append("client_id", clientId)
+            append("client_secret", clientSecret)
+            append("code", code)
+            append("grant_type", "authorization_code")
+            append("redirect_uri", redirectUri)
+        }.build()
+
+        println(parameters)
+
+        return ThreadsRequest(
+            {
+                client.post(
+                    "/oauth/access_token",
+                    parameters
+                        .toRequestBody("application/x-www-form-urlencoded; charset=utf-8".toMediaTypeOrNull())
+                )
+            },
+            {
+                client.getSerializer().fromJson(it, AccessToken::class.java)
+            }
+        )
+    }
 
 //    // POST /oauth/token
 //    fun postUserNameAndPassword(

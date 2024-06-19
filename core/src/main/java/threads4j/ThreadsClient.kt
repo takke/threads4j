@@ -65,7 +65,7 @@ class ThreadsClient private constructor(
         }
     }
 
-    val baseUrl = "https://threads.net"
+    private val baseUrl = "https://graph.threads.net"
 
     fun getSerializer() = gson
 
