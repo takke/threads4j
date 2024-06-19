@@ -17,8 +17,8 @@ TBD
 
 ## Auth
 
-- [ ] Generate Url for OAuth `https://threads.net/oauth/authorize`
-- [ ] POST `https://graph.threads.net/oauth/access_token`
+- [x] Generate Url for OAuth `https://threads.net/oauth/authorize`
+- [x] POST `https://graph.threads.net/oauth/access_token`
 - [ ] GET `https://graph.threads.net/access_token`
 
 ## Publishing
