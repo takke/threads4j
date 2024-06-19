@@ -6,7 +6,7 @@ import java.io.FileInputStream
 import java.io.IOException
 import java.util.Properties
 
-object Threads4jSample {
+object GetAccessToken {
 
     @JvmStatic
     fun main(args: Array<String>) {
