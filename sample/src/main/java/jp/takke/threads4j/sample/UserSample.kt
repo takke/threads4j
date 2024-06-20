@@ -25,6 +25,20 @@ object UserSample {
         }.execute()
 
         println("result: ${result.value}")
+
+
+        println("Get User...")
+
+        val result2 = client.user.getUser(
+            accessToken,
+            userId.toString(),
+            listOf("id", "username", "threads_profile_picture_url", "threads_biography")
+        ).doOnJson { json, _ ->
+            println("json: $json")
+        }.execute()
+
+        println("result: ${result2.value}")
+
     }
 
 }
