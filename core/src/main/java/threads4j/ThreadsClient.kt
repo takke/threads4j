@@ -165,5 +165,6 @@ class ThreadsClient private constructor(
 
     val apps get() = AppsMethod(this)
     val pulishing get() = PublishingMethod(this)
+    val publishing get() = PublishingMethod(this)
 
 }

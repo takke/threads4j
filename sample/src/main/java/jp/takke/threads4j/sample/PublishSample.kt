@@ -1,7 +1,6 @@
 package jp.takke.threads4j.sample
 
 import threads4j.ThreadsClient
-import kotlin.system.exitProcess
 
 object PublishSample {
 
@@ -17,7 +16,7 @@ object PublishSample {
         println("Publishing(1/2)...")
 
         val client = ThreadsClient.Builder().build()
-        val result = client.pulishing.postThreads(
+        val result = client.publishing.postThreads(
             accessToken,
             userId.toString(),
             "TEXT",
@@ -33,7 +32,7 @@ object PublishSample {
 
         println("Publishing(2/2)...")
 
-        val result2 = client.pulishing.postThreadsPublish(
+        val result2 = client.publishing.postThreadsPublish(
             accessToken,
             userId.toString(),
             threadsMediaContainerId
