@@ -2,7 +2,7 @@ package threads4j.method
 
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
-import threads4j.auth.AccessToken
+import threads4j.model.AccessToken
 import threads4j.Parameter
 import threads4j.ThreadsRequest
 import threads4j.ThreadsClient

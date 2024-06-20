@@ -1,4 +1,4 @@
-package threads4j.auth
+package threads4j.model
 
 import com.google.gson.annotations.SerializedName
 
