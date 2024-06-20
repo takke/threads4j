@@ -41,7 +41,7 @@ TBD
 
 - [ ] GET `/{threads-user-id}/threads`
 - [x] GET `/{threads-user-id}/threads_publishing_limit`
-- [ ] GET `/{threads-user-id}`
+- [x] GET `/{threads-user-id}`
 
 ## Insights
 
