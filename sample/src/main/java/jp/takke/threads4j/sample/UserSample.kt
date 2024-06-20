@@ -39,6 +39,22 @@ object UserSample {
 
         println("result: ${result2.value}")
 
+
+        println("Get Threads...")
+
+        val result3 = client.user.getThreads(
+            accessToken,
+            userId.toString(),
+            listOf(
+                "id", "media_product_type", "media_type", "media_url", "permalink", "owner", "username",
+                "text", "timestamp", "shortcode", "thumbnail_url", "children", "is_quote_post", "has_replies", "reply_audience"
+            ),
+        ).doOnJson { json, _ ->
+            println("json: $json")
+        }.execute()
+
+        println("result: ${result3.value}")
+
     }
 
 }
