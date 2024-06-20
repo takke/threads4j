@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import okhttp3.*
 import threads4j.method.AppsMethod
 import threads4j.method.PublishingMethod
+import threads4j.method.UserMethod
 import java.io.IOException
 
 
@@ -164,7 +165,7 @@ class ThreadsClient private constructor(
     //--------------------------------------------------
 
     val apps get() = AppsMethod(this)
-    val pulishing get() = PublishingMethod(this)
     val publishing get() = PublishingMethod(this)
+    val user get() = UserMethod(this)
 
 }
